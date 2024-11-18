@@ -33,6 +33,14 @@ const Trending = () => {
       }
     
       fetchData(currentPage);
+
+      // Ensure loading screen is shown for at least 2 seconds
+      const loadingTimeout = setTimeout(() => {
+        setLoading(false);
+      }, 2000);
+
+      // Cleanup timeout if component unmounts
+      return () => clearTimeout(loadingTimeout);
     
     }, [currentPage])
 
@@ -55,7 +63,7 @@ const Trending = () => {
         <h1 className="text-[8vw] md:text-[5vw]  text-center uppercase font-extrabold mt-32 mb-10 ">Trending Busters</h1>    
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-5 gap-5 md:gap-10">
         {trending.map((item, index)=>(
-            <MovieSingle item={item} key={index} showMedia={true} />
+          <MovieSingle item={item} key={index} showMedia={true} />
          ))}         
         </div>
         <div className="pagination-controls flex items-center gap-4 justify-center mt-5">

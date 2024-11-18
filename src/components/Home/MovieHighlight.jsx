@@ -49,11 +49,34 @@ const MovieHighlight = () => {
             }
         }                         
         fetchVideo();
+
+        // Ensure loading screen is shown for at least 2 seconds
+  const loadingTimeout = setTimeout(() => {
+    setLoading(false);
+  }, 2000);
+
+  // Cleanup timeout if component unmounts
+  return () => clearTimeout(loadingTimeout);
+
     }, [MOVIE_ID]);   
     
 
     return (
         <>
+        {loading ? 
+        <div className="my-10 single-movie container mx-auto rounded-3xl overflow-hidden relative bg-cover bg-center bg-gray-600">
+            <div className="md:flex md:items-end md:justify-start gap-14 p-10 z-10 relative">
+                <div className="single-poster md:w-1/4 bg-gray-300 rounded-2xl">                    
+                </div>
+                <div className="single-description md:w-1/2 mt-8 md:mt-0 text-white">
+                    <h1 className='text-4xl font-bold bg-gray-300'></h1>
+                    <p className='text-1xl mt-5 mb-5 bg-gray-300'></p>
+                    <p className='text-1xl bg-gray-300'></p>
+                    <p className='flex items-center text-1xl mt-4 bg-gray-300'></p>
+                </div>
+            </div>
+        </div>
+        : 
         <div className="my-10 single-movie container mx-auto rounded-3xl overflow-hidden relative bg-cover bg-center" style={{ backgroundImage: `url(https://image.tmdb.org/t/p/original/${singleMovie.backdrop_path})` }}>
             <div className="backgrund-blur absolute top-0 bottom-0 left-0 right-0 bg-black/20 backdrop-blur-lg" ></div>
             <div className="md:flex md:items-end md:justify-start gap-14 p-10 z-10 relative">
@@ -70,7 +93,7 @@ const MovieHighlight = () => {
                     {/* <a href="#" target='_blank' className="btn btn-primary btn-large btn-icon mt-10 pointer-events-none opacity-50">Watch Trailer <PlayCircle color="#fff" /></a> */}
                 </div>
             </div>
-        </div>
+        </div> }
     </>
     )
 }

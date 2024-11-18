@@ -30,6 +30,14 @@ const ListSlider = (props) => {
 
     fetchData();
 
+    // Ensure loading screen is shown for at least 2 seconds
+  const loadingTimeout = setTimeout(() => {
+    setLoading(false);
+  }, 2000);
+
+  // Cleanup timeout if component unmounts
+  return () => clearTimeout(loadingTimeout);
+
   }, [])
 
   return (
@@ -69,6 +77,9 @@ const ListSlider = (props) => {
         >
           {movieItem.slice(0, 10).map(item => (
             <SwiperSlide key={item.id} className="relative">
+              {loading ? 
+              <div className="rounded-xl bg-gray h-[250px] md:h-[350px] w-full"></div>
+              :
               <NavLink to={`/${item.media_type ? item.media_type : "movie"}/${item.id}`}>
                 <div className="movie-item rounded-xl overflow-hidden relative group" key={item.index}>
                   {props.showMedia == true ? <span className="media absolute top-4 left-4 bg-primary p-2 rounded-lg">{item.media_type == "tv" ?
@@ -77,7 +88,7 @@ const ListSlider = (props) => {
                   <img className='h-[250px] md:h-[350px] w-full object-cover' src={`https://image.tmdb.org/t/p/original${item.poster_path}`} alt={item.poster_path} />
                   <h1 className='absolute bottom-0 left-0 right-0 z-10 bg-black/40 text-white text-center backdrop-blur-sm p-3 rounded-lg group-hover:bg-primary transition group-hover:cursor-pointer'>{item.title ? item.title : item.original_name}</h1>
                 </div>
-              </NavLink>
+              </NavLink> }
             </SwiperSlide>
           ))}
         </Swiper>

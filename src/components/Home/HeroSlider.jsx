@@ -34,9 +34,21 @@ useEffect(()=> {
 
   fetchData();
 
+  // Ensure loading screen is shown for at least 2 seconds
+  const loadingTimeout = setTimeout(() => {
+    setLoading(false);
+  }, 2000);
+
+  // Cleanup timeout if component unmounts
+  return () => clearTimeout(loadingTimeout);
+
 }, [])
 
   return (
+    <>
+    {loading ? 
+    <div className="bg-gray h-[90dvh]"></div>
+    : 
     <div className=" overflow-hidden bg-purple-50 h-[90dvh]">
       <Swiper
       slidesPerView={1}
@@ -70,7 +82,8 @@ useEffect(()=> {
     </SwiperSlide>
     ))}      
     </Swiper> 
-    </div>    
+    </div>  }
+    </>
   )
 }
 
