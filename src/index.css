@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.btn {
+  @apply py-2 px-4 rounded-md hover:scale-90 transition
+}
+.btn-primary {
+  @apply bg-primary text-white
+}
+.btn-white {
+  @apply bg-white text-primary font-bold hover:scale-125 transition
+}
+.btn-black {
+  @apply bg-black text-white hover:bg-primary hover:text-white transition
+}
+.btn-large {
+  @apply py-4 px-8 rounded-xl
+}
+.btn-icon {
+  @apply inline-flex items-center gap-3
+}
+.btn-rounded {
+  @apply py-4 px-4 rounded-full bg-primary text-white
+}
+
+.swiper-pagination-bullet {
+  background-color: #fff !important;
+  width: 10px !important;
+  height: 10px !important;
+  border-radius: 10px !important;
+  transition: width .5s;
+}
+.swiper-pagination-bullet-active {
+  width: 30px !important;
+  transition: width 1s;
+}
+nav ul li a.active {
+  @apply text-primary;
+}
+
+@keyframes zoom-in-out {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2); /* Adjust as needed for zoom level */
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.zoom-animation {
+  animation: zoom-in-out 50s infinite linear; /* Adjust duration as needed */
+}
